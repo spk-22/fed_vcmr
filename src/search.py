@@ -28,7 +28,8 @@ class SearchIndex:
         rows = cursor.fetchall()
         
         embeddings = []
-        for chunk_id, cache_path in rows:
+        from tqdm import tqdm
+        for chunk_id, cache_path in tqdm(rows, desc="Building FAISS index"):
             features = np.load(cache_path) # (8, 512)
             # Weighted average as per Technical Reference: 
             # weights = [0.5, 0.75, 1.0, 1.25, 1.25, 1.0, 0.75, 0.5]

@@ -22,11 +22,15 @@ class MobileCLIPWrapper:
         self.model.eval()
 
     @torch.inference_mode()
-    def encode_text(self, texts: List[str]) -> np.ndarray:
-        text_tokens = self.tokenizer(texts).to(self.device)
-        text_features = self.model.encode_text(text_tokens)
-        text_features = F.normalize(text_features, dim=-1)
-        return text_features.cpu().numpy()
+    def encode_text(self, texts: List[str], batch_size: int = 128) -> np.ndarray:
+        all_features = []
+        for i in range(0, len(texts), batch_size):
+            batch = texts[i:i + batch_size]
+            text_tokens = self.tokenizer(batch).to(self.device)
+            text_features = self.model.encode_text(text_tokens)
+            text_features = F.normalize(text_features, dim=-1)
+            all_features.append(text_features.cpu().numpy())
+        return np.concatenate(all_features, axis=0)
 
     @torch.inference_mode()
     def encode_images(self, images: List[Image.Image]) -> np.ndarray:
