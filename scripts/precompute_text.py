@@ -5,6 +5,8 @@ import numpy as np
 from tqdm import tqdm
 import os
 
+import torch.nn.functional as F
+
 def precompute():
     DEVICE = 'cuda' if torch.cuda.is_available() else 'cpu'
     print(f"Loading MobileCLIP-S1 on {DEVICE}...")
@@ -54,6 +56,7 @@ def precompute():
 
             tokens = tokenizer(all_caps).to(DEVICE)
             embs = model.encode_text(tokens)  # (total_captions, 512)
+            embs = F.normalize(embs, dim=-1)  # ← L2 normalize before saving
             embs_cpu = embs.cpu().numpy().astype('float16')
 
             # Free GPU memory between batches

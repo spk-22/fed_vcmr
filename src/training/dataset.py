@@ -63,15 +63,21 @@ class MSRVTTDataset(Dataset):
         caption = random.choice(caps)
 
         # Load frame features from mmap (shape: 8, 512)
-        frames = torch.from_numpy(self.cache[global_idx].astype('float32'))
+        frames = self.cache[global_idx].astype('float32')
+
+        # FIX: Normalize each frame to unit sphere BEFORE averaging
+        frame_norms = np.linalg.norm(frames, axis=1, keepdims=True) + 1e-8
+        frames = frames / frame_norms
 
         # Feature Pooling (Center-biased weighted average)
-        # Weights: [0.5, 0.75, 1.0, 1.25, 1.25, 1.0, 0.75, 0.5]
-        w = torch.tensor([0.5, 0.75, 1.0, 1.25, 1.25, 1.0, 0.75, 0.5])
+        w = np.array([0.5, 0.75, 1.0, 1.25, 1.25, 1.0, 0.75, 0.5],
+                     dtype='float32')
         w = w / w.sum()
-        
-        # chunk_emb shape: (512,)
-        chunk_emb = (frames * w.unsqueeze(-1)).sum(0)
+        chunk_emb = (frames * w[:, None]).sum(0)  # (512,)
+
+        # L2-normalize the pooled result
+        chunk_emb = chunk_emb / (np.linalg.norm(chunk_emb) + 1e-8)
+        chunk_emb = torch.from_numpy(chunk_emb)
 
         return chunk_emb, caption, frames, video_id
 
