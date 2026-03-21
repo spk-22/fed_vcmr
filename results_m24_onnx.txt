@@ -1,0 +1,6 @@
+M24 — ONNX Export
+==================
+vision_adapter.onnx : exported, max_diff=0.000000 PASS
+text_adapter.onnx   : exported, max_diff=0.000000 PASS
+transformer.onnx    : exported, max_diff=0.000000 PASS
+INT8 quantisation   : skipped (opset18 shape issue)
