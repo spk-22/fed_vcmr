@@ -1,4 +1,0 @@
-M21 THNC Results (proper visual eval)
-Baseline R@1=0.00%
-THNC R@1=0.00%
-Improvement=+0.00%
