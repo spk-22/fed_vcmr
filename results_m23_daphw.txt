@@ -1,0 +1,7 @@
+M23 DAPHW — Domain-Adaptive Projection Head Warm-Start
+Zero-shot IoU@0.5=30.61%
+Zero-shot IoU@0.7=15.66%
+DAPHW IoU@0.5=33.45%
+DAPHW IoU@0.7=16.85%
+Delta IoU@0.5=+2.85%
+Delta IoU@0.7=+1.19%
