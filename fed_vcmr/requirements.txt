@@ -1,0 +1,10 @@
+torch
+torchvision
+open-clip-torch
+faiss-cpu
+numpy
+av
+Pillow
+orjson
+ijson
+tqdm
