@@ -1,0 +1,14 @@
+M21 THNC Final Results
+======================
+Zero-shot baseline  : 28.70%
+THNC v1 (512-dim)   : 31.00%  (+2.30%)
+THNC v2 (query-aware + learnable temp) : 32.20%  (+3.50%)
+
+Method details:
+- Residual adapter stays in 512-dim
+- Query-aware frame pooling (softmax weighted)
+- Learnable temperature: 14.29 -> 19.0
+- Batch size 512, LR=5e-5, 30 epochs
+- Phase 1 (easy): epochs 1-10
+- Phase 2 (medium): epochs 11-20
+- Phase 3 (hard): epochs 21-30

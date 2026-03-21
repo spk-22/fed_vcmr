@@ -1,0 +1,4 @@
+M20 Corrected Synonym Substitution
+original: R@1=28.70%
+synonym: R@1=27.20% drop=1.50%
+paraphrase: R@1=27.90% drop=0.80%

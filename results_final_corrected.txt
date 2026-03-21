@@ -1,0 +1,2 @@
+Corrected MSR-VTT Zero-Shot Baseline
+R@1=28.70% R@5=52.00% R@10=61.40% MedR=5

@@ -1,0 +1,4 @@
+M19 Corrected Query Robustness
+Descriptive=760, R@1=31.18%
+Ambiguous=240, R@1=20.83%
+Gap=10.35%
