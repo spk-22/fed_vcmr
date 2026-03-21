@@ -1,0 +1,6 @@
+M19 Query Robustness Analysis
+Total=1000, Descriptive=760, Ambiguous=240
+R@1 All=60.80%
+R@1 Descriptive=64.21%
+R@1 Ambiguous=50.00%
+Gap=14.21%

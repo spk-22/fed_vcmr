@@ -1,0 +1,5 @@
+M20 Synonym Substitution
+level_0_original: R@1=60.80% R@5=81.80% R@10=87.10%
+level_1_synonym: R@1=58.50% R@5=79.70% R@10=85.10%
+level_2_paraphrase: R@1=58.70% R@5=80.30% R@10=86.30%
+Drop L1=2.30% Drop L2=2.10%
