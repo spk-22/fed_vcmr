@@ -1,0 +1,4 @@
+M19 + M20 VERIFIED RESULTS (real visual features)
+Zero-shot R@1=28.70% R@5=52.00%
+M19: Desc=31.18% Amb=20.83% Gap=10.35%
+M20: Synonym drop=1.50% Paraphrase drop=0.80%
