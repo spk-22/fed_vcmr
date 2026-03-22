@@ -1,0 +1,16 @@
+SQAR — Synonym-Invariant Query-Augmented Retrieval
+===================================================
+Before SQAR:
+  R@1=30.20%  Desc=32.50%  Amb=22.92%  Gap=9.58%
+
+After SQAR:
+  R@1=30.10%  Desc=32.11%  Amb=23.75%  Gap=8.36%
+
+Improvements:
+  Ambiguous R@1  : +0.83% (22.92 -> 23.75%)
+  Gap reduced    : -1.22% (9.58 -> 8.36%)
+  Overall R@1    : -0.10% (negligible tradeoff)
+
+Method: Multi-caption contrastive + SimCSE token masking
+  Loss = InfoNCE(v,t) + 0.3 * SimCSE(t1, mask(t2))
+  Batch=512, LR=3e-5, 30 epochs total
