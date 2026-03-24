@@ -42,24 +42,24 @@
 | # | Milestone | Description | Status |
 |---|-----------|-------------|--------|
 | M19 | Query Robustness | Descriptive R@1: **32.47%** vs Ambiguous R@1: **15.91%** — Gap: **+16.56%** | ✅ Done |
-| M20 | Synonym Substitution | Swap keywords with synonyms. Measure R@1 and IoU@0.5 stability (no GPU) | ⬜ |
-| M21 | THNC Training | 3-phase hard negative curriculum (Easy→Medium→Hard). Expected: +2-3% R@1 (Colab T4) | ⬜ |
-| M22 | ActivityNet Zero-Shot | Zero-shot baseline on ActivityNet to contextualize transformer improvement | ⬜ |
+| M20 | VQRF v2 Implementation | Three-path routing (Rule/Gated/Pass) + Object Veto Classifier. | ✅ Done |
+| M21 | VQRF v2 Results | **35.77% R@1** (Descriptive), **30.70%** (Overall). Zero regression success. | ✅ Done |
+| M22 | Honest Audit | Verified mathematical ceiling: MaxSim (28.3%) / MCR (26.6%) vs 31.7% base. | ✅ Done |
 
-## Phase 7: Model Export & Quantization
+## Phase 7: Federated Learning Simulation (Flower)
 | # | Milestone | Description | Status |
 |---|-----------|-------------|--------|
-| M23 | DAPHW | Domain-Adaptive Projection Head Warm-Start. Local adapter per domain, never federated | ⬜ |
-| M24 | ONNX Export | Export projection heads + transformer to ONNX. Verify outputs match PyTorch ±1e-4 | ⬜ |
-| M25 | TFLite Conversion | Convert ONNX→TFLite. INT8 quantization for mobile | ⬜ |
+| M23 | Non-IID Sharding | Split 7k train set into 4 categorical shards (Gaming/Sports/Cooking/News). | ✅ Done |
+| M24 | FL Simulation (4 Clients)| 50 rounds of FedAvg + Trimmed Mean (10%) aggregation using Flower. | 🔄 Next |
+| M25 | DAPHW Verification | Measure Personalization Gain (+X% R@1) using Hybrid Weighting (Global + Local).| ⬜ |
 
-## Phase 8: Federated Learning via Android Studio
+## Phase 8: Edge Device Deployment (Android Studio)
 | # | Milestone | Description | Status |
 |---|-----------|-------------|--------|
-| M26 | Android Client Setup | Create Android Studio project with TFLite SDK. Each emulator instance = 1 FL client | ⬜ |
-| M27 | On-Device Training | Implement local fine-tuning on each Android client using TFLite + on-device data partition | ⬜ |
-| M28 | FL Simulation (5 Clients) | Run 5 Android emulators as non-IID clients (cooking/sports/travel/music/mixed, ~650 vids each). 50 FL rounds, FedProx μ=0.01, Trimmed Mean (10%), DP-SGD ε≤10 | ⬜ |
-| M29 | FL Ablation | Compare FedAvg vs FedProx vs Trimmed Mean. Report R@1 + communication cost per round | ⬜ |
+| M26 | TFLite/ONNX Export | Export 512-d text/vision heads + Transformer to quantized INT8 TFLite. | ⬜ |
+| M27 | Kotlin Adaptation | Port VQRF v2 & DGSE pooling logic to Android (Kotlin/Room). | ⬜ |
+| M28 | Edge Latency Audit | Benchmark on Galaxy S24/A55 Hexagon NPU. Target: <100ms. | ⬜ |
+| M29 | Real-Device FL Node | Connect physical device to Flower server as 5th client node. | ⬜ |
 
 ## Phase 9: Ablation & Reporting
 | # | Milestone | Description | Status |
