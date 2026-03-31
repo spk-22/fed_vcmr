@@ -91,12 +91,20 @@ class VCMRClient(fl.client.NumPyClient):
 
     def fit(self, parameters, config):
         self.set_parameters(parameters)
-        optimizer = torch.optim.AdamW(list(self.text_head.parameters()) + list(self.vision_head.parameters()), lr=1e-4)
+        
+        # Keep global copy for proximal regularization
+        import copy
+        t_head_global = copy.deepcopy(self.text_head)
+        v_head_global = copy.deepcopy(self.vision_head)
+        
+        optimizer = torch.optim.AdamW(list(self.text_head.parameters()) + list(self.vision_head.parameters()), 
+                                    lr=1e-5, weight_decay=0.05)
         
         self.text_head.train()
         self.vision_head.train()
         
         BATCH_SIZE = 64
+        mu = 0.1 # Proximal regularization strength
         total_loss = 0
         pbar = tqdm(range(0, len(self.vids), BATCH_SIZE), desc=f"Client {self.client_id} Round")
         
@@ -104,20 +112,19 @@ class VCMRClient(fl.client.NumPyClient):
             batch_vids = self.vids[i:i+BATCH_SIZE]
             batch_caps = [self.cats.get(v, "a video") for v in batch_vids]
             
-            # 1. Text Embedding (The 'Device' part)
+            # 1. Text Embedding
             tokens = self.tokenizer(batch_caps).to(DEVICE)
             with torch.no_grad():
                 t_raw = F.normalize(self.backbone.encode_text(tokens).float(), dim=-1)
             t_emb = self.text_head(t_raw)
             
-            # 2. Vision Embedding (The 'Device' part)
+            # 2. Vision Embedding
             v_embs = []
             for vid in batch_vids:
                 chunks = self.vid_chunks.get(vid, [])
                 if not chunks:
                     v_embs.append(torch.zeros(512).to(DEVICE))
                     continue
-                # Load frame features (8, 512)
                 frames = self.cache[self.idx_map[chunks[0]]].astype('float32')
                 frames /= (np.linalg.norm(frames, axis=1, keepdims=True) + 1e-8)
                 v_feat = torch.from_numpy(frames).mean(0).to(DEVICE)
@@ -126,13 +133,22 @@ class VCMRClient(fl.client.NumPyClient):
             v_raw = torch.stack(v_embs)
             v_emb = self.vision_head(v_raw)
             
-            # 3. InfoNCE Loss
+            # 3. Loss with Proximal Term
             loss = info_nce_loss(v_emb, t_emb)
+            
+            prox_loss = 0
+            for p, p_g in zip(self.text_head.parameters(), t_head_global.parameters()):
+                prox_loss += ((p - p_g)**2).sum()
+            for p, p_g in zip(self.vision_head.parameters(), v_head_global.parameters()):
+                prox_loss += ((p - p_g)**2).sum()
+                
+            total_batch_loss = loss + mu * prox_loss
+            
             optimizer.zero_grad()
-            loss.backward()
+            total_batch_loss.backward()
             optimizer.step()
-            total_loss += loss.item()
-            pbar.set_postfix({"loss": f"{loss.item():.4f}"})
+            total_loss += total_batch_loss.item()
+            pbar.set_postfix({"loss": f"{total_batch_loss.item():.4f}"})
 
         avg_loss = total_loss / (len(self.vids) / BATCH_SIZE)
         return self.get_parameters(config={}), len(self.vids), {"loss": avg_loss}

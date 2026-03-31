@@ -39,13 +39,12 @@ class DGSE(nn.Module):
 
     def coarse(self, frames):
         """
-        frames: (B, N, D) or (N, D)
-        returns: (B, D) or (D,)
+        frames: (B, N, D)
+        returns: (B, D)
         """
         w = self.coarse_weights  # (N,)
-        if frames.dim() == 2:
-            return (frames * w.unsqueeze(-1)).sum(0)
-        return (frames * w.unsqueeze(0).unsqueeze(-1)).sum(1)
+        # matmul: (B, D, N) @ (N, 1) -> (B, D, 1) -> (B, D)
+        return torch.matmul(frames.transpose(1, 2), w.unsqueeze(-1)).squeeze(-1)
 
     def fine(self, frames, query):
         """
@@ -53,11 +52,10 @@ class DGSE(nn.Module):
         query:  (B, D)
         returns: (B, D)
         """
-        # Compute attention weights conditioned on query
         logits  = self.attn_proj(query)          # (B, N)
         weights = F.softmax(logits, dim=-1)       # (B, N)
-        # Weighted sum over frames
-        return (frames * weights.unsqueeze(-1)).sum(1)  # (B, D)
+        # matmul: (B, D, N) @ (B, N, 1) -> (B, D, 1) -> (B, D)
+        return torch.matmul(frames.transpose(1, 2), weights.unsqueeze(-1)).squeeze(-1)
 
     def forward(self, frames, query):
         """

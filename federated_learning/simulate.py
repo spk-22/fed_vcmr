@@ -111,6 +111,7 @@ class VCMRClient(fl.client.NumPyClient):
             t_emb = self.text_head(t_raw)
             
             # 2. Vision side - mean pool from cache
+            # 2. Vision side - max pool from cache
             v_list = []
             for vid in batch_vids:
                 chunks = vid_chunks.get(vid, [])
@@ -118,9 +119,12 @@ class VCMRClient(fl.client.NumPyClient):
                     v_list.append(torch.zeros(512, device=DEVICE))
                     continue
                 frames = frame_cache[idx_map[chunks[0]]].astype('float32')
-                # L2 normalize first
+                # L2 normalize frames before max-pool
                 frames /= (np.linalg.norm(frames, axis=1, keepdims=True) + 1e-8)
-                v_list.append(torch.from_numpy(frames.mean(0)).to(DEVICE))
+                v_feat = torch.from_numpy(frames).max(dim=0)[0].to(DEVICE)
+                # Re-normalize pooled feature
+                v_feat = F.normalize(v_feat, dim=-1)
+                v_list.append(v_feat)
             
             v_emb = self.vision_head(torch.stack(v_list))
             
@@ -186,6 +190,19 @@ class SaveModelStrategy(fl.server.strategy.FedAvg):
                 os.makedirs('checkpoints', exist_ok=True)
                 torch.save(state_dict, 'checkpoints/fl_global_model.pt')
                 
+            # Periodic checkpoints for learning curve
+            if server_round in [1, 10, 20, 30, 40, 50]:
+                params = fl.common.parameters_to_ndarrays(aggregated_parameters)
+                mid = len(params) // 2
+                t_head = ProjectionHead()
+                v_head = ProjectionHead()
+                state_dict = {
+                    'text_head': {k: torch.tensor(v) for k, v in zip(t_head.state_dict().keys(), params[:mid])},
+                    'vision_head': {k: torch.tensor(v) for k, v in zip(v_head.state_dict().keys(), params[mid:])}
+                }
+                torch.save(state_dict, f'checkpoints/fl_global_round_{server_round}.pt')
+                print(f"Periodic Checkpoint: Round {server_round} saved.")
+
             if server_round == NUM_ROUNDS:
                 print(f"Final Round {server_round} complete. Best Loss: {self.best_loss:.4f}")
 

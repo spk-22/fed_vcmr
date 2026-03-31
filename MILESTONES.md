@@ -34,8 +34,8 @@
 |---|-----------|-------------|--------|
 | M14 | Pipeline Integration | Chain FAISS→MaxSim→DGSE→Transformer. Output: `[vid, start, end, conf]` | ✅ Done |
 | M15 | Latency Profiling | Per-stage latency measurement. Target: <100ms total (Achieved: **42.9ms**) | ✅ Done |
-| M16 | ActivityNet Full Eval | R@1 IoU@0.5: **6.47%**, IoU@0.7: **3.33%** (vs 10.04% baseline) | ✅ Done |
-| M17 | Charades-STA Eval | R@1 IoU@0.5: **1.90%**, IoU@0.7: **0.92%**, Video R@1: **5.07%** (1,736 videos, zero-shot) | ✅ Done |
+| M16 | ActivityNet Full Eval | R@1 IoU@0.5: **13.83%**, IoU@0.7: **5.11%** (beats MA-VR baseline) | ✅ Done |
+| M17 | Charades-STA Eval | R@1 IoU@0.5: **1.99%**, IoU@0.7: **0.81%**, Video R@1: **6.27%** (1,736 videos, zero-shot) | ✅ Done |
 | M18 | Kinetics-400 Eval | Extract features from subset, build FAISS index, R@1/5/10 domain generalization (eval only, no GPU) | ⬜ |
 
 ## Phase 6: Robustness & Refinement
@@ -50,8 +50,8 @@
 | # | Milestone | Description | Status |
 |---|-----------|-------------|--------|
 | M23 | Non-IID Sharding | Split 7k train set into 4 categorical shards (Gaming/Sports/Cooking/News). | ✅ Done |
-| M24 | FL Simulation (4 Clients)| 50 rounds of FedAvg + Trimmed Mean (10%) aggregation using Flower. | 🔄 Next |
-| M25 | DAPHW Verification | Measure Personalization Gain (+X% R@1) using Hybrid Weighting (Global + Local).| ⬜ |
+| M24 | FL Simulation (4 Clients)| 50 rounds of FedAvg + Trimmed Mean (10%) aggregation using Flower. | ✅ Done |
+| M25 | DAPHW Verification | Measure Personalization Gain (**+2.53% mean**) using Vision-Centric Adapt. | ✅ Done |
 
 ## Phase 8: Edge Device Deployment (Android Studio)
 | # | Milestone | Description | Status |
@@ -86,15 +86,15 @@
 | Phase 2: Baselines | M4–M7 | ✅ Complete |
 | Phase 3: Training | M8–M12 | ✅ Complete |
 | Phase 4: Transformer | M13 | ✅ Complete |
-| Phase 5: Integration & Eval | M14–M18 | ⬜ Next |
-| Phase 6: Robustness | M19–M22 | ⬜ Planned |
-| Phase 7: Export | M23–M25 | ⬜ Planned |
-| Phase 8: FL (Android Studio) | M26–M29 | ⬜ Planned |
+| Phase 5: Integration & Eval | M14–M18 | 🔄 Next |
+| Phase 6: Robustness | M19–M22 | ✅ Complete |
+| Phase 7: FL Simulation | M23–M25 | ✅ Complete |
+| Phase 8: Edge Deployment | M26–M29 | ⬜ Planned |
 | Phase 9: Reporting | M30–M32 | ⬜ Planned |
 | Phase 10: Deployment | M33–M36 | ⬜ Final |
 
 **Key Results So Far:**
-- MSR-VTT R@1: **31.2%** (M10)
-- ActivityNet R@1 IoU@0.5: **34.5%** — beats MA-VR by **3.4x** (M13)
-- Zero-Shot Generalization: Verified on external YouTube video
-- Inference Latency: **~63ms** end-to-end on consumer hardware
+- MSR-VTT R@1: **31.7%** (M11)
+- ActivityNet R@1 IoU@0.5: **13.83%** — beats MA-VR baseline (M16)
+- FL Personalization Gain: **+2.53% mean** across 4 clients (M25)
+- Inference Latency: **42.9ms** end-to-end on consumer hardware (M15)

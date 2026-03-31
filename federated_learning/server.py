@@ -11,11 +11,11 @@ def main():
     # 1. Define Strategy (Aggregator)
     # We use FedAvg for now, but can switch to FedProx or Trimmed Mean
     strategy = fl.server.strategy.FedAvg(
-        fraction_fit=1.0,          # All 4 clients must participate
-        fraction_evaluate=1.0,     # All 4 clients must evaluate
-        min_fit_clients=4,
-        min_evaluate_clients=4,
-        min_available_clients=4,
+        fraction_fit=1.0,
+        fraction_evaluate=1.0,
+        min_fit_clients=1,         # Single device for edge testing
+        min_evaluate_clients=1,
+        min_available_clients=1,
     )
 
     # 2. Start Flower Server
