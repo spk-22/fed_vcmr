@@ -177,3 +177,7 @@ android/.gradle/
 # Large demo files
 outputs/demos/demo_conf_v_0-kEI13BtcY.mp4
 pc_verification/
+
+# Large model weights (use Git LFS for these)
+*.ptl
+android/app/src/main/assets/models/*.ptl
