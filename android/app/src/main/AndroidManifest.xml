@@ -1,0 +1,83 @@
+<?xml version="1.0" encoding="utf-8"?>
+<manifest xmlns:android="http://schemas.android.com/apk/res/android">
+
+    <uses-permission android:name="android.permission.FOREGROUND_SERVICE" />
+    <uses-permission android:name="android.permission.FOREGROUND_SERVICE_SPECIAL_USE" />
+    <uses-permission android:name="android.permission.INTERNET" />
+    <uses-permission android:name="android.permission.READ_EXTERNAL_STORAGE" />
+    <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE"
+        android:maxSdkVersion="32" />
+    <uses-permission android:name="android.permission.MANAGE_EXTERNAL_STORAGE" />
+    <uses-permission android:name="android.permission.CAMERA" />
+    <uses-permission android:name="android.permission.READ_MEDIA_VIDEO" />
+    <uses-permission android:name="android.permission.READ_MEDIA_IMAGES" />
+    <uses-permission android:name="android.permission.WAKE_LOCK" />
+
+    <application
+        android:label="FedVCMR"
+        android:supportsRtl="true"
+        android:requestLegacyExternalStorage="true">
+
+        <!-- Main UI activity -->
+        <activity
+            android:name=".ui.MainActivity"
+            android:exported="true"
+            android:theme="@style/Theme.Material3.Light">
+            <intent-filter>
+                <action android:name="android.intent.action.MAIN" />
+                <category android:name="android.intent.category.LAUNCHER" />
+            </intent-filter>
+        </activity>
+
+        <!-- Upload activity -->
+        <activity
+            android:name=".ui.UploadActivity"
+            android:exported="false"
+            android:theme="@style/Theme.Material3.Light" />
+
+        <!-- Legacy initialization activity (kept for reference) -->
+        <activity
+            android:name=".InitActivity"
+            android:exported="false" />
+
+        <!-- Receiver to trigger search from ADB -->
+        <receiver
+            android:name=".SearchReceiver"
+            android:exported="true">
+            <intent-filter>
+                <action android:name="com.fedvcmr.SEARCH" />
+                <action android:name="com.fedvcmr.INGEST" />
+            </intent-filter>
+        </receiver>
+
+        <!-- Receiver to trigger FL training from ADB -->
+        <receiver
+            android:name=".FLReceiver"
+            android:exported="true">
+            <intent-filter>
+                <action android:name="com.fedvcmr.FL_TRAIN" />
+            </intent-filter>
+        </receiver>
+
+        <!-- Receiver to trigger benchmarks from ADB -->
+        <receiver
+            android:name=".BenchmarkReceiver"
+            android:exported="true">
+            <intent-filter>
+                <action android:name="com.fedvcmr.BENCHMARK" />
+            </intent-filter>
+        </receiver>
+
+        <service
+            android:name=".BenchmarkService"
+            android:exported="true"
+            android:foregroundServiceType="specialUse">
+            <intent-filter>
+                <action android:name="com.fedvcmr.START_BENCHMARK" />
+            </intent-filter>
+            <property android:name="android.app.PROPERTY_SPECIAL_USE_FGS_SUBTYPE"
+                android:value="performance_benchmark" />
+        </service>
+
+    </application>
+</manifest>

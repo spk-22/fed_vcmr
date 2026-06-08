@@ -158,3 +158,22 @@ fedvcmr.db
 eval_harness_m3.py
 smoke_test.py
 eval_1ka.py
+
+# Large binary assets — tracked via Git LFS or excluded
+ActivityNet/videos/
+Charades/Charades_v1_480/
+outputs/phone_index.json
+outputs/demos/demo_conf_v_0-kEI13BtcY.mp4
+.venv/
+android/app/build/
+*.part
+
+# Local tooling config
+.claude/
+
+# Gradle caches
+android/.gradle/
+
+# Large demo files
+outputs/demos/demo_conf_v_0-kEI13BtcY.mp4
+pc_verification/

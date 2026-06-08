@@ -1,0 +1,78 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:orientation="vertical"
+    android:padding="16dp"
+    android:background="#F5F5F5"
+    android:layout_margin="8dp">
+
+    <!-- Source badge: "Demo" (gray) or "Your video" (green) -->
+    <TextView
+        android:id="@+id/sourceBadge"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:paddingStart="8dp"
+        android:paddingEnd="8dp"
+        android:paddingTop="2dp"
+        android:paddingBottom="2dp"
+        android:textSize="11sp"
+        android:textColor="#FFFFFF"
+        android:textStyle="bold"
+        android:background="#9E9E9E"
+        android:layout_marginBottom="6dp"
+        android:text="Demo" />
+
+    <TextView
+        android:id="@+id/videoIdText"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="Video ID"
+        android:textSize="16sp"
+        android:textStyle="bold" />
+
+    <TextView
+        android:id="@+id/momentText"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="Moment: 0.0s - 5.0s"
+        android:textSize="14sp"
+        android:layout_marginTop="8dp" />
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        android:layout_marginTop="8dp"
+        android:gravity="center_vertical">
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Score: " />
+
+        <ProgressBar
+            android:id="@+id/scoreBar"
+            android:layout_width="0dp"
+            android:layout_height="8dp"
+            android:layout_weight="1"
+            android:layout_marginStart="8dp"
+            android:layout_marginEnd="8dp"
+            style="@android:style/Widget.ProgressBar.Horizontal" />
+
+        <TextView
+            android:id="@+id/scoreText"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="0.0"
+            android:textSize="12sp" />
+
+    </LinearLayout>
+
+    <androidx.media3.ui.PlayerView
+        android:id="@+id/playerView"
+        android:layout_width="match_parent"
+        android:layout_height="200dp"
+        android:layout_marginTop="12dp" />
+
+</LinearLayout>

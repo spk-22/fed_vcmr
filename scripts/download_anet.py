@@ -5,10 +5,10 @@ from tqdm import tqdm
 import concurrent.futures
 
 # Config
-ANET_JSON = 'ActivityNet/train.json'
+ANET_IDS = 'ActivityNet/val_ids.json'
 OUT_DIR = 'ActivityNet/videos'
-MAX_VIDS = 3300
-CONCURRENT_DOWNLOADS = 4
+MAX_VIDS = 800
+CONCURRENT_DOWNLOADS = 8
 
 if not os.path.exists(OUT_DIR):
     os.makedirs(OUT_DIR)
@@ -29,6 +29,8 @@ def download_video(video_id):
         sys.executable, "-m", "yt_dlp",
         "-f", "best[height<=360]",
         "--merge-output-format", "mp4",
+        "--downloader", "ffmpeg",
+        "--downloader-args", "ffmpeg:-hwaccel auto",
         "-o", out_path,
         url
     ]
@@ -46,10 +48,9 @@ def download_video(video_id):
 import random
 
 def main():
-    with open(ANET_JSON, 'r') as f:
-        data = json.load(f)
+    with open(ANET_IDS, 'r') as f:
+        all_vids = json.load(f)
     
-    all_vids = list(data.keys())
     existing_vids = set([f[:-4] for f in os.listdir(OUT_DIR) if f.endswith('.mp4')])
     current_count = len(existing_vids)
     
@@ -63,7 +64,7 @@ def main():
     random.shuffle(to_try)
     
     needed = MAX_VIDS - current_count
-    print(f"Need {needed} more videos. Searching in randomized list of {len(to_try)}...")
+    print(f"Need {needed} more videos from validation set. Searching in randomized list of {len(to_try)}...")
     
     downloaded = 0
     failed = 0

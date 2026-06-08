@@ -1,0 +1,160 @@
+{
+  "query": "a man drives a vehicle through the countryside",
+  "results": [
+    {
+      "rank": 1,
+      "chunk_id": "video0_c0",
+      "video_id": "video0",
+      "dgse_score": 0.2540149390697479,
+      "timestamp": [
+        0.18,
+        5.62
+      ],
+      "confidence": 1.0,
+      "chunk_span": [
+        0.0,
+        8.0
+      ]
+    },
+    {
+      "rank": 2,
+      "chunk_id": "video0_c1",
+      "video_id": "video0",
+      "dgse_score": 0.25272583961486816,
+      "timestamp": [
+        4.18,
+        9.62
+      ],
+      "confidence": 1.0,
+      "chunk_span": [
+        4.0,
+        12.0
+      ]
+    },
+    {
+      "rank": 3,
+      "chunk_id": "video166_c0",
+      "video_id": "video166",
+      "dgse_score": 0.23241183161735535,
+      "timestamp": [
+        0.06,
+        4.93
+      ],
+      "confidence": 1.0,
+      "chunk_span": [
+        0.0,
+        8.0
+      ]
+    },
+    {
+      "rank": 4,
+      "chunk_id": "video7354_c0",
+      "video_id": "video7354",
+      "dgse_score": 0.23050445318222046,
+      "timestamp": [
+        0.22,
+        4.73
+      ],
+      "confidence": 1.0,
+      "chunk_span": [
+        0.0,
+        8.0
+      ]
+    },
+    {
+      "rank": 5,
+      "chunk_id": "video166_c1",
+      "video_id": "video166",
+      "dgse_score": 0.21719226241111755,
+      "timestamp": [
+        4.05,
+        8.34
+      ],
+      "confidence": 1.0,
+      "chunk_span": [
+        4.0,
+        11.01127
+      ]
+    },
+    {
+      "rank": 6,
+      "chunk_id": "video7209_c1",
+      "video_id": "video7209",
+      "dgse_score": 0.21251732110977173,
+      "timestamp": [
+        4.3,
+        7.62
+      ],
+      "confidence": 1.0,
+      "chunk_span": [
+        4.0,
+        10.01
+      ]
+    },
+    {
+      "rank": 7,
+      "chunk_id": "video7209_c0",
+      "video_id": "video7209",
+      "dgse_score": 0.2072400003671646,
+      "timestamp": [
+        0.33,
+        4.82
+      ],
+      "confidence": 1.0,
+      "chunk_span": [
+        0.0,
+        8.0
+      ]
+    },
+    {
+      "rank": 8,
+      "chunk_id": "video7340_c0",
+      "video_id": "video7340",
+      "dgse_score": 0.20539632439613342,
+      "timestamp": [
+        0.31,
+        5.08
+      ],
+      "confidence": 1.0,
+      "chunk_span": [
+        0.0,
+        8.0
+      ]
+    },
+    {
+      "rank": 9,
+      "chunk_id": "video7354_c1",
+      "video_id": "video7354",
+      "dgse_score": 0.20195874571800232,
+      "timestamp": [
+        4.18,
+        7.52
+      ],
+      "confidence": 1.0,
+      "chunk_span": [
+        4.0,
+        10.0
+      ]
+    },
+    {
+      "rank": 10,
+      "chunk_id": "video120_c1",
+      "video_id": "video120",
+      "dgse_score": 0.198902428150177,
+      "timestamp": [
+        4.12,
+        9.05
+      ],
+      "confidence": 1.0,
+      "chunk_span": [
+        4.0,
+        12.0
+      ]
+    }
+  ],
+  "timings": {
+    "Stage 1 (Cosine)": 0.0,
+    "Stage 2 (DGSE)": 37.53829002380371,
+    "Stage 3 (Grounding)": 37.099361419677734
+  }
+}

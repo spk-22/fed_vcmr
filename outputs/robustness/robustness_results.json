@@ -1,0 +1,168 @@
+{
+  "query": {
+    "descriptive": {
+      "query": "a man drives a vehicle through the countryside",
+      "rank": 1,
+      "score": 0.2534196972846985,
+      "R@1": 1.0,
+      "R@5": 1.0,
+      "R@10": 1.0,
+      "R@50": 1.0
+    },
+    "ambiguous": {
+      "query": "a car is shown",
+      "rank": 67,
+      "score": 0.17461545765399933,
+      "R@1": 0.0,
+      "R@5": 0.0,
+      "R@10": 0.0,
+      "R@50": 0.0
+    },
+    "paraphrased": {
+      "query": "a man driving a car",
+      "rank": 1,
+      "score": 0.2581894099712372,
+      "R@1": 1.0,
+      "R@5": 1.0,
+      "R@10": 1.0,
+      "R@50": 1.0
+    },
+    "wrong": {
+      "query": "a cat sleeping on a couch in a dark room",
+      "rank": 856,
+      "score": -0.01081269234418869,
+      "R@1": 0.0,
+      "R@5": 0.0,
+      "R@10": 0.0,
+      "R@50": 0.0
+    }
+  },
+  "quality": {
+    "gaussian": [
+      {
+        "severity": 0.05,
+        "mean_rank": 2.1,
+        "R@1": 0.2,
+        "R@10": 1.0
+      },
+      {
+        "severity": 0.15,
+        "mean_rank": 117.6,
+        "R@1": 0.0,
+        "R@10": 0.2
+      },
+      {
+        "severity": 0.3,
+        "mean_rank": 478.5,
+        "R@1": 0.0,
+        "R@10": 0.0
+      }
+    ],
+    "frame_dropout": [
+      {
+        "severity": 1,
+        "mean_rank": 1.0,
+        "R@1": 1.0,
+        "R@10": 1.0
+      },
+      {
+        "severity": 3,
+        "mean_rank": 1.0,
+        "R@1": 1.0,
+        "R@10": 1.0
+      },
+      {
+        "severity": 5,
+        "mean_rank": 1.1,
+        "R@1": 0.9,
+        "R@10": 1.0
+      }
+    ],
+    "dim_mask": [
+      {
+        "severity": 0.1,
+        "mean_rank": 1.8,
+        "R@1": 0.2,
+        "R@10": 1.0
+      },
+      {
+        "severity": 0.3,
+        "mean_rank": 5.3,
+        "R@1": 0.0,
+        "R@10": 0.9
+      },
+      {
+        "severity": 0.5,
+        "mean_rank": 42.6,
+        "R@1": 0.0,
+        "R@10": 0.5
+      }
+    ],
+    "temporal_shuffle": [
+      {
+        "severity": 1,
+        "mean_rank": 1.0,
+        "R@1": 1.0,
+        "R@10": 1.0
+      }
+    ]
+  },
+  "domain": {
+    "general": {
+      "msrvtt": {
+        "best_rank": 7,
+        "score": 0.21050484478473663
+      },
+      "activitynet": {
+        "best_rank": 1,
+        "score": 0.22524535655975342
+      },
+      "unseen": {
+        "best_rank": 82,
+        "score": 0.17567133903503418
+      }
+    },
+    "sports": {
+      "msrvtt": {
+        "best_rank": 5,
+        "score": 0.2082514464855194
+      },
+      "activitynet": {
+        "best_rank": 1,
+        "score": 0.24061152338981628
+      },
+      "unseen": {
+        "best_rank": 98,
+        "score": 0.13185060024261475
+      }
+    },
+    "cooking": {
+      "msrvtt": {
+        "best_rank": 1,
+        "score": 0.2534297704696655
+      },
+      "activitynet": {
+        "best_rank": 11,
+        "score": 0.23054298758506775
+      },
+      "unseen": {
+        "best_rank": 342,
+        "score": 0.10560169070959091
+      }
+    },
+    "music": {
+      "msrvtt": {
+        "best_rank": 6,
+        "score": 0.18285973370075226
+      },
+      "activitynet": {
+        "best_rank": 1,
+        "score": 0.22146163880825043
+      },
+      "unseen": {
+        "best_rank": 336,
+        "score": 0.11406323313713074
+      }
+    }
+  }
+}
